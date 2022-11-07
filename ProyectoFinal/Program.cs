@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 
 namespace ProyectoFinal { 
 	class Program { 
@@ -36,6 +36,10 @@ namespace ProyectoFinal {
 			
 			Console.WriteLine("Hello World");
 			Console.ReadKey();
+			Console.WriteLine("");
+			Console.WriteLine("");
+			Console.WriteLine("");
+			Console.WriteLine("");
 			Console.WriteLine("");
 		}
 	} 
