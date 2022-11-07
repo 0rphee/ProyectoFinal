@@ -38,9 +38,6 @@ namespace ProyectoFinal {
 			Console.ReadKey();
 			Console.WriteLine("");
 			Console.WriteLine("");
-			Console.WriteLine("");
-			Console.WriteLine("");
-			Console.WriteLine("");
 		}
 	} 
 }
