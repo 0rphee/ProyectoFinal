@@ -33,6 +33,11 @@ namespace ProyectoFinal
 				int dato;
 				do {
 					dato = int.Parse(obtenerDato(textoAMostrar));
+
+					if (dato < limInf || limSup < dato){
+						Console.WriteLine($"'{dato}' no es una opción válida");
+					}
+
 				} while (dato < limInf || limSup < dato);
 				return dato;
 			}
@@ -67,13 +72,10 @@ namespace ProyectoFinal
 					for (int j = 0; j < numIngredientes; j++) {
 						currRecipe.ingredientes[j] = obtenerDato($"Ingrese el nombre del ingrediente {j+1}:");
 					}
-	
 				}
-				
 			}
 		
 			// INICIO PROPIO DEL PROGRAMA ------------------------------------------------------------------
-			
 			
 			// numero de recetas que se ingresarán al sistema
 			int nRecetas = validacionInt(0, 10, "¿Cuántas recetas vas a registar?");
@@ -96,10 +98,6 @@ namespace ProyectoFinal
 						break;
 				}
 			} while (opc != 3);
-			
-			
-			
-			
 		}
 	} 
 }
