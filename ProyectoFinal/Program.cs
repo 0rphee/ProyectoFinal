@@ -1,23 +1,15 @@
-/*
-Se piden recetas de cocina, se ingresan características.
-Para los ingredientes de la receta podríamos crear otra estructura, struct Ingrediente, para poder 
-guardar el nombre y la cantidad del ingrediente en un solo array? Como ustedes lo vean mejor. También
-a saber si Vicky lo aceptaría. Por lo mientra solo deje un array para los nombres.
-
-Para resultados se buscará por nombre, id.
-Se mostrará una tabla con cada receta y sus características
-
-
-*/
 
 namespace ProyectoFinal
 {
     class Program { 
-		public struct Receta {
-			public int id;
+		public struct Prenda {
+			public string id;
+			public double precio;
 			public string nombre;
-			public string[] ingredientes; // TODO tal vez cambiarlo, ver inicio del archivo
-			public int porciones;
+			public int[] unidades;
+			public string[] tallas; 
+			public DateTime fechaEntrada;
+			public DateTime fechaOferta;
 		}
 		static void Main(string[] args) {
 			
@@ -56,30 +48,35 @@ namespace ProyectoFinal
 				return validacionInt(1, numTitulos+1, "Deme la opción deseada:");
 			}
 			
-			void entradaDatos(int numRecetas) {
-				for (int i = 0; i < numRecetas; i++) {
+			void entradaDatos(int numPrendas) {
+				for (int i = 0; i < numPrendas; i++) {
 
 					Console.WriteLine($"\nA continuación ingresará la información de la receta {i+1}");
 					
-					Receta currRecipe = new Receta();
-					currRecipe.id = i;
-					currRecipe.nombre = obtenerDato("Ingrese el nombre de la receta:");
-					currRecipe.porciones = validacionInt(0, 100, "Ingrese el número de porciones para las que la receta rinde:");
-					
-					int numIngredientes = validacionInt(0, 100, "Ingrese el número de ingredientes necesarios para realizar la receta:");
-					currRecipe.ingredientes = new string[numIngredientes];
+					Prenda currPrenda = new Prenda();
+					currPrenda.id = obtenerDato("Ingrese el ID de la prenda:");
+					currPrenda.nombre = obtenerDato("Ingrese el nombre de la prenda:");
 
-					for (int j = 0; j < numIngredientes; j++) {
-						currRecipe.ingredientes[j] = obtenerDato($"Ingrese el nombre del ingrediente {j+1}:");
+					int nTallas = validacionInt(0,10, "Ingrese el número de tallas disponibles para esta prenda:");
+					currPrenda.tallas = new string[nTallas];
+					currPrenda.unidades= new int[nTallas];
+
+					for (int k = 0; k < nTallas; k++){
+						currPrenda.tallas[k] = obtenerDato($"Ingrese el nombre de la talla número {k+1}:");
+						currPrenda.unidades[k] = int.Parse(obtenerDato($"Ingrese el número de unidades de la talla {currPrenda.tallas[k]}:"));
+					}
+
+					currPrenda.fechaEntrada = DateTime.Parse(obtenerDato("Dame la fecha de la prenda dd/mm/yyyy:"));
+					
 					}
 				}
 			}
-		
-			// INICIO PROPIO DEL PROGRAMA ------------------------------------------------------------------
+	
+			// INICIO PROPIO DEL PROGRAMA -----------------kkk-------------------------------------------------
 			
 			// numero de recetas que se ingresarán al sistema
-			int nRecetas = validacionInt(0, 10, "¿Cuántas recetas vas a registar?");
-			Receta[] recetas = new Receta[nRecetas];
+			int nPrendas = validacionInt(5, 100, "¿Cuántas prendas vas a registar?");
+			Prenda[] recetas = new Prenda[nPrendas];
 			
 			int opc;
 			do 
@@ -88,7 +85,7 @@ namespace ProyectoFinal
 				switch (opc)
 				{
 					case 1:
-						entradaDatos(nRecetas);
+						entradaDatos(nPrendas);
 						break;
 					case 2:
 						//usoDeRecetas();
