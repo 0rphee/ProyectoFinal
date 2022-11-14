@@ -67,12 +67,41 @@ namespace ProyectoFinal
 					}
 
 					currPrenda.fechaEntrada = DateTime.Parse(obtenerDato("Dame la fecha de la prenda dd/mm/yyyy:"));
-					
-					}
+					currPrenda.fechaOferta = currPrenda.fechaEntrada.Add(TimeSpan.FromDays(30)) ; 
 				}
 			}
+			
+			void entregaResultados(Prenda[] prendas){
+				int opc;
+				do
+				{
+					opc = obtenerOpcMenu(new string[] {"Mostrar listado de prendas", "Buscar por ID", "Búsqueda por nombre", "Mostrar cinco prendas con mayor costo", "Mostrar cinco prendas con menor costo"}, "SUBMENÚ");
+					switch (opc)
+					{
+						case 1:
+							// mostrarListado();
+							break;
+						case 2:
+							// busquedaID();
+							break;
+						case 3:
+							// busquedaNombre();
+							break;
+						case 4:
+							// mayoresCinco();
+							break;
+						case 5:
+							// menoresCinco();
+							break;
+						case 6:
+							break;
+
+					}
+				} while (opc != 6 );
+				
+			}
 	
-			// INICIO PROPIO DEL PROGRAMA -----------------kkk-------------------------------------------------
+			// INICIO PROPIO DEL PROGRAMA ------------------------------------------------------------------
 			
 			// numero de recetas que se ingresarán al sistema
 			int nPrendas = validacionInt(5, 100, "¿Cuántas prendas vas a registar?");
