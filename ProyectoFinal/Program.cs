@@ -110,34 +110,44 @@ namespace ProyectoFinal
 				}
 				return section;
 			}
-		
-			string mostrarLineaPrenda(Prenda prenda){
-				string fila;
-				fila = formatearPropiedad(prenda.id, -5);
-				fila += formatearPropiedad($"$ {prenda.precio.ToString()}", -5);
-				fila += formatearPropiedad($"{prenda.nombre}", -20);
-				fila += formatearTallas(prenda.unidadesTalla, -3);
-				fila += formatearPropiedad($"{prenda.fechaEntrada.ToString("d")}", -10);
-				fila += formatearPropiedad($"{prenda.fechaOferta.ToString("d")}", -10);
-				return fila;
+
+			string formatearTituloTallas(string[] arrNombresTallas, int espacios){
+				string section = "";
+				
+				for (int i = 0; i <  arrNombresTallas.Length; i++){
+					section += String.Format($"| {{0, {espacios}}} |", arrNombresTallas[i]); 
+				}
+				return section;
 			}
-			
+		
 			string mostrarLineaTitulos(){
 				string[] nombreTallas = new string[3] {"chica", "mediana", "grande"};
 				string fila;
 				fila = formatearPropiedad("ID", -5);
-				fila += formatearPropiedad("PRECIO", -5);
+				fila += formatearPropiedad("PRECIO", -7);
 				fila += formatearPropiedad("NOMBRE", -20);
-				fila += formatearTallas(nombreTallas, -3);
-				fila += formatearPropiedad("FECHA DE ENTRADA", -10);
-				fila += formatearPropiedad("FECHA DE OFERTA", -10);
+				fila += formatearTituloTallas(nombreTallas, -7);
+				fila += formatearPropiedad("FECHA DE ENTRADA", -16);
+				fila += formatearPropiedad("FECHA DE OFERTA", -16);
+				return fila;
+			}
+			
+			string mostrarLineaPrenda(Prenda prenda){
+				string fila;
+				fila = formatearPropiedad(prenda.id, -5);
+				fila += formatearPropiedad($"$ {prenda.precio.ToString()}", -7);
+				fila += formatearPropiedad($"{prenda.nombre}", -20);
+				fila += formatearTallas(prenda.unidadesTalla, -7);
+				fila += formatearPropiedad($"{prenda.fechaEntrada.ToString("d")}", -16);
+				fila += formatearPropiedad($"{prenda.fechaOferta.ToString("d")}", -16);
 				return fila;
 			}
 			
 			
 			string mostrarListado(Prenda[] prendas){
-				string topList = "--------------------------------------------------------------------------------";
-				string listado = topList + "\n";
+				string titulos =  mostrarLineaTitulos(); 
+				string topList = String.Concat(Enumerable.Repeat("-", titulos.Length));
+				string listado = topList + "\n" + titulos + "\n" + topList + "\n";
 				for (int i = 0; i < prendas.Length; i++){
 					listado += $"{mostrarLineaPrenda(prendas[i])}\n";
 				}
@@ -156,7 +166,7 @@ namespace ProyectoFinal
 							break;
 						case 2:
 							string idBuscar = obtenerDato("Ingrese el ID de prenda a encontrar:");
-							Console.WriteLine(busquedaID(prendas, idBuscar));
+							Console.WriteLine(busquedaID(prendas, idBuscar)); 
 							break;
 						case 3:
 							string nombreBuscar= obtenerDato("Ingrese el nombre de prenda a encontrar:");
@@ -177,7 +187,7 @@ namespace ProyectoFinal
 			string busquedaID(Prenda[] prendas, string idEncontrar){
 				for (int i = 0; i < prendas.Length; i++){
 					if (prendas[i].id == idEncontrar){
-						return mostrarLineaPrenda(prendas[i]); // TODO metodo para imprimir bonito prenda
+						return mostrarListado(new Prenda[] {prendas[i]}); // TODO arreglar impresion
 					}
 				}
 				return $"No se encontró ninguna prenda con el ID: {idEncontrar}";
@@ -186,7 +196,7 @@ namespace ProyectoFinal
 			string busquedaNombre(Prenda[] prendas, string nombreEncontrar){
 			for (int i = 0; i < prendas.Length; i++){
 					if (prendas[i].nombre == nombreEncontrar){
-						return mostrarLineaPrenda(prendas[i]); // TODO metodo para imprimir bonito prenda
+						return mostrarListado(new Prenda[] {prendas[i]}); // TODO arreglar impresion
 					}
 				}
 				return $"No se encontró ninguna prenda con el nombre: {nombreEncontrar}";
@@ -195,10 +205,10 @@ namespace ProyectoFinal
 						
 			void test(){
 				Prenda testprenda = new Prenda();
-				testprenda.id = "342324";
+				testprenda.id = "12345";
 				testprenda.nombre = "adsljkfsd";
 				testprenda.precio = 34242;
-				testprenda.unidades = new int[1] {1};
+				testprenda.unidadesTalla = new int[3] {1,0,0};
 				testprenda.fechaEntrada = DateTime.Today;
 				testprenda.fechaOferta = DateTime.Today;
 				
