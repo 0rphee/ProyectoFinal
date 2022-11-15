@@ -5,8 +5,7 @@ namespace ProyectoFinal
 			public string id;
 			public double precio;
   			public string nombre;
-			public int[] unidades;
-			public string[] tallas; 
+			public int[] unidadesTalla; // chico/mediano/grande TODO cambiar donde pide nombres de talla, e impresion de lista
 			public DateTime fechaEntrada;
 			public DateTime fechaOferta;
 		}
@@ -85,13 +84,11 @@ namespace ProyectoFinal
 					currPrenda.nombre = validacionLength(0, 30, "Ingrese el nombre de la prenda:"); // TODO añadir validación por longitud de nombre
 					currPrenda.precio = validacionDouble(0, 10000, "Ingrese el precio de la prenda: $");
 
-					int nTallas = validacionInt(0,10, "Ingrese el número de tallas disponibles para esta prenda:");
-					currPrenda.tallas = new string[nTallas];
-					currPrenda.unidades= new int[nTallas];
+					currPrenda.unidadesTalla = new int[3];
+					string[] nombreTallas = new string[3] {"chica", "mediana", "grande"};
 
-					for (int k = 0; k < nTallas; k++){
-						currPrenda.tallas[k] = obtenerDato($"Ingrese el nombre de la talla número {k+1}:");
-						currPrenda.unidades[k] = int.Parse(obtenerDato($"Ingrese el número de unidades de la talla {currPrenda.tallas[k]}:"));
+					for (int k = 0; k < currPrenda.unidadesTalla.Length; k++){
+						currPrenda.unidadesTalla[k] = int.Parse(obtenerDato($"Ingrese el número de unidades de la talla {nombreTallas[k]}:"));
 					}
 
 					currPrenda.fechaEntrada = DateTime.Parse(obtenerDato("Dame la fecha de la prenda dd/mm/yyyy:"));
@@ -119,14 +116,27 @@ namespace ProyectoFinal
 				fila = formatearPropiedad(prenda.id, -5);
 				fila += formatearPropiedad($"$ {prenda.precio.ToString()}", -5);
 				fila += formatearPropiedad($"{prenda.nombre}", -20);
-				fila += formatearTallas(prenda.unidades, -3);
+				fila += formatearTallas(prenda.unidadesTalla, -3);
 				fila += formatearPropiedad($"{prenda.fechaEntrada.ToString("d")}", -10);
 				fila += formatearPropiedad($"{prenda.fechaOferta.ToString("d")}", -10);
 				return fila;
 			}
 			
+			string mostrarLineaTitulos(){
+				string[] nombreTallas = new string[3] {"chica", "mediana", "grande"};
+				string fila;
+				fila = formatearPropiedad("ID", -5);
+				fila += formatearPropiedad("PRECIO", -5);
+				fila += formatearPropiedad("NOMBRE", -20);
+				fila += formatearTallas(nombreTallas, -3);
+				fila += formatearPropiedad("FECHA DE ENTRADA", -10);
+				fila += formatearPropiedad("FECHA DE OFERTA", -10);
+				return fila;
+			}
+			
+			
 			string mostrarListado(Prenda[] prendas){
-				string topList = "-----------------------------------------------------------------------------";
+				string topList = "--------------------------------------------------------------------------------";
 				string listado = topList + "\n";
 				for (int i = 0; i < prendas.Length; i++){
 					listado += $"{mostrarLineaPrenda(prendas[i])}\n";
@@ -181,9 +191,25 @@ namespace ProyectoFinal
 				}
 				return $"No se encontró ninguna prenda con el nombre: {nombreEncontrar}";
 			}
-	
-			// INICIO PROPIO DEL PROGRAMA ------------------------------------------------------------------
 			
+						
+			void test(){
+				Prenda testprenda = new Prenda();
+				testprenda.id = "342324";
+				testprenda.nombre = "adsljkfsd";
+				testprenda.precio = 34242;
+				testprenda.unidades = new int[1] {1};
+				testprenda.fechaEntrada = DateTime.Today;
+				testprenda.fechaOferta = DateTime.Today;
+				
+				Console.WriteLine(mostrarListado(new Prenda[1] {testprenda}));
+	
+			}			
+						// INICIO PROPIO DEL PROGRAMA ------------------------------------------------------------------
+			
+			// TEST IMPRESION
+			test();
+
 			// numero de recetas que se ingresarán al sistema
 			int nPrendas = validacionInt(1, 100, "¿Cuántas prendas vas a registar?"); // TODO definir numero minimo de prendas
 			Prenda[] prendas = new Prenda[nPrendas];
