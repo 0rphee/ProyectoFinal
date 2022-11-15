@@ -71,6 +71,18 @@ namespace ProyectoFinal
 				}
 			}
 			
+			string formatearPropiedad(string prop){
+				return String.Format("|{0, -45}|", prop);
+			}
+			
+			string mostrarLineaPrenda(Prenda prenda){
+				string fila;
+				fila = formatearPropiedad(formatearPropiedad(prenda.id));
+				fila += formatearPropiedad(formatearPropiedad($"{prenda.precio.ToString()}"));
+				// TODO terminar fila += formatearPropiedad(formatearPropiedad(prenda.precio));
+				return fila;
+			}
+			
 			void entregaResultados(Prenda[] prendas){
 				int opc;
 				do
@@ -82,7 +94,7 @@ namespace ProyectoFinal
 							// mostrarListado();
 							break;
 						case 2:
-							// busquedaID();
+							// TODO BUSQUEDA ID Console.WriteLine(busquedaID())
 							break;
 						case 3:
 							// busquedaNombre();
@@ -95,17 +107,33 @@ namespace ProyectoFinal
 							break;
 						case 6:
 							break;
-
 					}
 				} while (opc != 6 );
-				
+			}
+			
+			string busquedaID(Prenda[] prendas, string idEncontrar){
+				for (int i = 0; i < prendas.Length; i++){
+					if (prendas[i].id == idEncontrar){
+						return ""; // TODO metodo para imprimir bonito prenda
+					}
+				}
+				return $"No se encontró ninguna prenda con el ID: {idEncontrar}";
+			}
+			
+			string busquedaNombre(Prenda[] prendas, string nombreEncontrar){
+				for (int i = 0; i < prendas.Length; i++){
+					if (prendas[i].nombre == nombreEncontrar){
+						return ""; // TODO metodo para imprimir bonito prenda
+					}
+				}
+				return $"No se encontró ninguna prenda con el nombre: {nombreEncontrar}";
 			}
 	
 			// INICIO PROPIO DEL PROGRAMA ------------------------------------------------------------------
 			
 			// numero de recetas que se ingresarán al sistema
 			int nPrendas = validacionInt(5, 100, "¿Cuántas prendas vas a registar?");
-			Prenda[] recetas = new Prenda[nPrendas];
+			Prenda[] prendas = new Prenda[nPrendas];
 			
 			int opc;
 			do 
@@ -117,7 +145,7 @@ namespace ProyectoFinal
 						entradaDatos(nPrendas);
 						break;
 					case 2:
-						//usoDeRecetas();
+						entregaResultados(prendas);
 						break;
 					case 3:
 						// salida de menú, termina ejecución del programa
