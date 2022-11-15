@@ -1,11 +1,10 @@
-
 namespace ProyectoFinal
 {
     class Program { 
 		public struct Prenda {
 			public string id;
 			public double precio;
-			public string nombre;
+  			public string nombre;
 			public int[] unidades;
 			public string[] tallas; 
 			public DateTime fechaEntrada;
@@ -27,10 +26,38 @@ namespace ProyectoFinal
 					dato = int.Parse(obtenerDato(textoAMostrar));
 
 					if (dato < limInf || limSup < dato){
-						Console.WriteLine($"'{dato}' no es una opción válida");
+						Console.WriteLine($"'{dato}' no es una opción válida, debe estar entre {limInf} y {limSup}");
 					}
 
 				} while (dato < limInf || limSup < dato);
+				return dato;
+			}
+
+			double validacionDouble(double limInf, double limSup, string textoAMostrar) {
+				double dato;
+				do {
+					dato = double.Parse(obtenerDato(textoAMostrar));
+
+					if (dato < limInf || limSup < dato){
+						Console.WriteLine($"'{dato}' no es una opción válida, debe estar entre {limInf} y {limSup}");
+					}
+
+				} while (dato < limInf || limSup < dato);
+				return dato;
+			}
+
+			string validacionLength(int limInf, int limSup, string textoAMostrar) {
+				string dato;
+				bool condicion;
+				do {
+					dato = obtenerDato(textoAMostrar);
+					
+					condicion = dato.Length < limInf || limSup < dato.Length;
+					if (condicion){
+						Console.WriteLine($"'{dato}' no es una opción válida, debe estar tener longitud de entre {limInf} y {limSup}");
+					}
+
+				} while (condicion);
 				return dato;
 			}
 
@@ -48,14 +75,15 @@ namespace ProyectoFinal
 				return validacionInt(1, numTitulos+1, "Deme la opción deseada:");
 			}
 			
-			void entradaDatos(int numPrendas) {
-				for (int i = 0; i < numPrendas; i++) {
+			void entradaDatos(Prenda[] prendas) {
+				for (int i = 0; i < prendas.Length; i++) {
 
-					Console.WriteLine($"\nA continuación ingresará la información de la receta {i+1}");
+					Console.WriteLine($"\nA continuación ingresará la información de la prenda {i+1}");
 					
 					Prenda currPrenda = new Prenda();
-					currPrenda.id = obtenerDato("Ingrese el ID de la prenda:");
-					currPrenda.nombre = obtenerDato("Ingrese el nombre de la prenda:");
+					currPrenda.id = validacionLength(5, 5, "Ingrese el ID de la prenda:");
+					currPrenda.nombre = validacionLength(0, 30, "Ingrese el nombre de la prenda:"); // TODO añadir validación por longitud de nombre
+					currPrenda.precio = validacionDouble(0, 10000, "Ingrese el precio de la prenda: $");
 
 					int nTallas = validacionInt(0,10, "Ingrese el número de tallas disponibles para esta prenda:");
 					currPrenda.tallas = new string[nTallas];
@@ -68,19 +96,42 @@ namespace ProyectoFinal
 
 					currPrenda.fechaEntrada = DateTime.Parse(obtenerDato("Dame la fecha de la prenda dd/mm/yyyy:"));
 					currPrenda.fechaOferta = currPrenda.fechaEntrada.Add(TimeSpan.FromDays(30)) ; 
+					prendas[i] = currPrenda;
 				}
+
 			}
 			
-			string formatearPropiedad(string prop){
-				return String.Format("|{0, -45}|", prop);
+			string formatearPropiedad(string prop, int espacios){
+				return String.Format($"| {{0, {espacios}}} |", prop);
 			}
 			
+			string formatearTallas(int[] arrUnidadesTallas, int espacios){
+				string section = "";
+				
+				for (int i = 0; i <  arrUnidadesTallas.Length; i++){
+					section += String.Format($"| {{0, {espacios}}} |", arrUnidadesTallas[i]); 
+				}
+				return section;
+			}
+		
 			string mostrarLineaPrenda(Prenda prenda){
 				string fila;
-				fila = formatearPropiedad(formatearPropiedad(prenda.id));
-				fila += formatearPropiedad(formatearPropiedad($"{prenda.precio.ToString()}"));
-				// TODO terminar fila += formatearPropiedad(formatearPropiedad(prenda.precio));
+				fila = formatearPropiedad(prenda.id, -5);
+				fila += formatearPropiedad($"$ {prenda.precio.ToString()}", -5);
+				fila += formatearPropiedad($"{prenda.nombre}", -20);
+				fila += formatearTallas(prenda.unidades, -3);
+				fila += formatearPropiedad($"{prenda.fechaEntrada.ToString("d")}", -10);
+				fila += formatearPropiedad($"{prenda.fechaOferta.ToString("d")}", -10);
 				return fila;
+			}
+			
+			string mostrarListado(Prenda[] prendas){
+				string topList = "-----------------------------------------------------------------------------";
+				string listado = topList + "\n";
+				for (int i = 0; i < prendas.Length; i++){
+					listado += $"{mostrarLineaPrenda(prendas[i])}\n";
+				}
+				return listado + topList;
 			}
 			
 			void entregaResultados(Prenda[] prendas){
@@ -91,13 +142,15 @@ namespace ProyectoFinal
 					switch (opc)
 					{
 						case 1:
-							// mostrarListado();
+							Console.WriteLine(mostrarListado(prendas));
 							break;
 						case 2:
-							// TODO BUSQUEDA ID Console.WriteLine(busquedaID())
+							string idBuscar = obtenerDato("Ingrese el ID de prenda a encontrar:");
+							Console.WriteLine(busquedaID(prendas, idBuscar));
 							break;
 						case 3:
-							// busquedaNombre();
+							string nombreBuscar= obtenerDato("Ingrese el nombre de prenda a encontrar:");
+							Console.WriteLine(busquedaNombre(prendas, nombreBuscar));
 							break;
 						case 4:
 							// mayoresCinco();
@@ -114,16 +167,16 @@ namespace ProyectoFinal
 			string busquedaID(Prenda[] prendas, string idEncontrar){
 				for (int i = 0; i < prendas.Length; i++){
 					if (prendas[i].id == idEncontrar){
-						return ""; // TODO metodo para imprimir bonito prenda
+						return mostrarLineaPrenda(prendas[i]); // TODO metodo para imprimir bonito prenda
 					}
 				}
 				return $"No se encontró ninguna prenda con el ID: {idEncontrar}";
 			}
 			
 			string busquedaNombre(Prenda[] prendas, string nombreEncontrar){
-				for (int i = 0; i < prendas.Length; i++){
+			for (int i = 0; i < prendas.Length; i++){
 					if (prendas[i].nombre == nombreEncontrar){
-						return ""; // TODO metodo para imprimir bonito prenda
+						return mostrarLineaPrenda(prendas[i]); // TODO metodo para imprimir bonito prenda
 					}
 				}
 				return $"No se encontró ninguna prenda con el nombre: {nombreEncontrar}";
@@ -132,20 +185,26 @@ namespace ProyectoFinal
 			// INICIO PROPIO DEL PROGRAMA ------------------------------------------------------------------
 			
 			// numero de recetas que se ingresarán al sistema
-			int nPrendas = validacionInt(5, 100, "¿Cuántas prendas vas a registar?");
+			int nPrendas = validacionInt(1, 100, "¿Cuántas prendas vas a registar?"); // TODO definir numero minimo de prendas
 			Prenda[] prendas = new Prenda[nPrendas];
 			
 			int opc;
+			bool datosRegistrados = false;
 			do 
 			{
-				opc = obtenerOpcMenu(new string[] {"Entrada de datos", "Uso de recetas"}, "MENU PRINCIPAL");
+				opc = obtenerOpcMenu(new string[] {"Entrada de datos", "Muestra de resultados"}, "MENU PRINCIPAL");
 				switch (opc)
 				{
 					case 1:
-						entradaDatos(nPrendas);
+						entradaDatos(prendas);
+						datosRegistrados = true;
 						break;
 					case 2:
+						if (datosRegistrados){
 						entregaResultados(prendas);
+						} else{
+							Console.WriteLine("No se han registrado prendas aún.");
+						}
 						break;
 					case 3:
 						// salida de menú, termina ejecución del programa
