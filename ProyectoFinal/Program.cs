@@ -4,7 +4,7 @@ namespace ProyectoFinal
 	    /* 
 	    The structure that will be applied through out all the program, in which we will be able to create the outputed table in which the input of the user will be showed. In this structure, some inputs will also be used for some Math equations, mostly for the outputed price. 
 	    The intended use for each class inside the structure is as follows:
-	    - 'id' will be used for the given item number, we find this in string format for the unusable numbers that other classifications change or ignore.
+	    - 'id' will be used for the given item number, we find this in string format for the unusable numbers that other classifications change or ignore. The maximmum lenght of characters (char) will be 5.
 	    - 'precio' shows the price of the clothing, its uses double classification for the decimal use and for the discount.
 	    - 'nombre' will show the name of the clothing, the name uses string for the usege of characters. Its important here that the name of the clothes needs to be inserted completely and correctly.
 	    - 'unidadesTalla' shows the Size of the clothing, in this class we will insert either of the following: 'chico'/'mediano'/'grande'. Once the user inputs one of the options showed before there will be a +1 made on the according size.
@@ -13,12 +13,14 @@ namespace ProyectoFinal
 	    */
 		public struct Prenda {
 			public string id;
-			public double precio;
+			public double precio; // max 5 char
   			public string nombre;
 			public int[] unidadesTalla; // chico/mediano/grande
-			public DateTime fechaEntrada;
-			public DateTime fechaOferta;
+			public DateTime fechaEntrada; // dd/mm/yyyy
+			public DateTime fechaOferta; // dd/mm/yyyy
 		}
+	    
+	    	// The start of the Main program
 		static void Main(string[] args) {
 			
 			// funciones genéricas que suelo utilizar
