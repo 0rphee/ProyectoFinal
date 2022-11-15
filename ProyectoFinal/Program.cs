@@ -8,7 +8,8 @@ namespace ProyectoFinal
 	    - 'precio' shows the price of the clothing, its uses double classification for the decimal use and for the discount.
 	    - 'nombre' will show the name of the clothing, the name uses string for the usege of characters. Its important here that the name of the clothes needs to be inserted completely and correctly.
 	    - 'unidadesTalla' shows the Size of the clothing, in this class we will insert either of the following: 'chico'/'mediano'/'grande'. Once the user inputs one of the options showed before there will be a +1 made on the according size.
-	    - 'fechaEntrada' will be used to input the date in which the desired clothing is registered 
+	    - 'fechaEntrada' will be used to input the date in which the desired clothing is registered in the database, the format of the date will be dd / mm / yyyy.
+	    - 'fechaOferta' will be used for the registration of the time that the clothing has stayed in the database, the format will be the same as the one before.
 	    */
 		public struct Prenda {
 			public string id;
