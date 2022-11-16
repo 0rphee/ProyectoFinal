@@ -30,7 +30,7 @@ namespace ProyectoFinal
 				return Console.ReadLine();
 			}
 
-			// valida que un int se encuentre dentro de límites definidos
+			// This function is the validation that checks if all the variables with the data type 'int' are within the stablished maximum and mimimum limits (interval).
 			int validacionInt(int limInf, int limSup, string textoAMostrar) {
 				int dato;
 				do {
@@ -44,7 +44,7 @@ namespace ProyectoFinal
 				return dato;
 			}
 
-			// valida que un double se encuentre dentro de límites definidos
+			// This function is the validation that checks if all the variables with the data type 'double' are within the stablished maximum and mimimum limits (interval).
 			double validacionDouble(double limInf, double limSup, string textoAMostrar) {
 				double dato;
 				do {
@@ -58,7 +58,7 @@ namespace ProyectoFinal
 				return dato;
 			}
 
-			// valida que un string tenga un tamaño entre límites definidos
+			// This function is the validation that checks if all the variables with the data type 'string' are within the stablished maximum and mimimum limits (interval).
 			string validacionLength(int limInf, int limSup, string textoAMostrar) {
 				string dato;
 				bool condicion;
@@ -74,7 +74,7 @@ namespace ProyectoFinal
 				return dato;
 			}
 
-			// Genera menu y devuelve una opcion del menú
+			// Generates the corresponding Menu and returns an option of the menu.
 			int obtenerOpcMenu(string[] titulos, string mainTitle) {
 				int numTitulos = titulos.Length;
 
@@ -198,24 +198,27 @@ namespace ProyectoFinal
 				} while (opc != 6 );
 			}
 			
+			// He next line of code searches the input of the user in the ID section.
 			string busquedaID(Prenda[] prendas, string idEncontrar){
-				for (int i = 0; i < prendas.Length; i++){
-					if (prendas[i].id == idEncontrar){
+				for (int i = 0; i < prendas.Length; i++){ // It will loop the search for each clothing item inside the database.
+					if (prendas[i].id == idEncontrar){ 
 						return crearListaPrendas(new Prenda[] {prendas[i]}); // TODO arreglar impresion
-					}
+					} // if the 'if' statement is satisfied it will stop the loop and output all the information of the clothing item, otherwise, the it will continue on with the next item and so on.
 				}
-				return $"No se encontró ninguna prenda con el ID: {idEncontrar}";
+				return $"No se encontró ninguna prenda con el ID: {idEncontrar}"; // In the event that the if statement does not find anything and the loop has closed it will print the line of text.
 			}
 			
+			// He next line of code searches the input of the user in the Name section.
 			string busquedaNombre(Prenda[] prendas, string nombreEncontrar){
-			for (int i = 0; i < prendas.Length; i++){
+			for (int i = 0; i < prendas.Length; i++){ // It will loop the search for each clothing item inside the database.
 					if (prendas[i].nombre == nombreEncontrar){
 						return crearListaPrendas(new Prenda[] {prendas[i]}); // TODO arreglar impresion
-					}
+					} // if the 'if' statement is satisfied it will stop the loop and output all the information of the clothing item, otherwise, the it will continue on with the next item and so on.
 				}
-				return $"No se encontró ninguna prenda con el nombre: {nombreEncontrar}";
+				return $"No se encontró ninguna prenda con el nombre: {nombreEncontrar}"; // In the event that the if statement does not find anything and the loop has closed it will print the line of text.
 			}
-						
+			
+			// This is te test unit that is used to quickly test the code, without the neccesity of placing the inputs ourselves each time we need to test something.
 			void test(){
 				Prenda testprenda = new Prenda();
 				testprenda.id = "12345";
@@ -228,37 +231,44 @@ namespace ProyectoFinal
 				Console.WriteLine(crearListaPrendas(new Prenda[1] {testprenda}));
 			}			
 
-			// INICIO PROPIO DEL PROGRAMA ------------------------------------------------------------------
+			// PROPER BEGINNING OF THE PROGRAM ------------------------------------------------------------------
 			
-			// TEST IMPRESION
+			// TEST PRINT, we use this command so that the computer outputs the test unit of an example that simulates the input the user could place.
 			test();
 
-			// numero de prendas que se ingresarán al sistema
+			// Input of the number of clothes that the user will 
 			int nPrendas = validacionInt(1, 100, "¿Cuántas prendas vas a registar?"); // TODO definir numero minimo de prendas
 			Prenda[] prendas = new Prenda[nPrendas];
 			
-			int opc;
-			bool datosRegistrados = false;
+			
+			
+			int opc; // create the variable 'opc' for the menu, its usage is when choosing an option isnide of the menu.
+			bool datosRegistrados = false; // This statement is for the case that the user inputs the second option but hasn't registered the data.
+			
 			do 
 			{
 				opc = obtenerOpcMenu(new string[] {"Entrada de datos", "Muestra de resultados"}, "MENU PRINCIPAL");
 				switch (opc)
 				{
 					case 1:
-						entradaDatos(prendas);
-						datosRegistrados = true;
+						entradaDatos(prendas); // we go directly to the array the user in which the user will input all the data needed for the program.
+						datosRegistrados = true; // By converting the boolean from 'false' to 'true' we say that data has been registered inside the database.
 						break;
 					case 2:
+						/*
+						With this 'if' statement we check if the user already choose 'case 1' and registered the data.
+						The 'if' statement evalutes if the statement is true or false, by default it's in that order. As such, in this program, it will check if the 'datosRegistrados' variable is either 'true' or 'false'.
+						*/
 						if (datosRegistrados){
-							entregaResultados(prendas);
+							entregaResultados(prendas); // If the variable is 'true' it will send the user into the array which displays the SubMenu, that is for the results..
 						} else{
-							Console.WriteLine("No se han registrado prendas aún. Registra prendas antes de ver resultados.");
+							Console.WriteLine("No se han registrado prendas aún. Registra prendas antes de ver resultados."); // If the variable is 'false' it will output the message and back out to the menu once again.
 						}
 						break;
 					case 3:
-						// salida de menú, termina ejecución del programa
+						// This option closes the menu, terminate the execution of the program.
 						break;
-				}
+				} // In each case we use the break command so that the program stops and backsteps into the corresponding output.
 			} while (opc != 3);
 		}
 	} 
