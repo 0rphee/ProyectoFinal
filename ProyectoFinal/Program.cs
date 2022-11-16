@@ -110,8 +110,26 @@ namespace ProyectoFinal
 
 					prendas[i] = currPrenda;
 				}
+				ordenación (Prenda[] prendas);
 			}
 			
+			static void ordenación(Prenda[] prendas)
+			{
+				Prenda aux;
+				for(int i = 0; i < prendas.Length-1; i++)
+				{
+					for (int j = 0; j < prendas.Length-1-i; j++)
+					{
+						if (prendas[j] < prendas[j+1])
+						{
+							aux = prendas[r];
+							prendas[r] = prendas [r + 1];
+							prendas[r + 1] = aux;
+						}
+					}
+				}
+			}
+
 			string formatearPropiedad(string prop, int espacios){
 				return String.Format($"| {{0, {espacios}}} |", prop);
 			}
