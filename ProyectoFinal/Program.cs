@@ -4,9 +4,9 @@ namespace ProyectoFinal
 	    /* 
 	    The structure that will be applied through out all the program, in which we will be able to create the outputed table in which the input of the user will be showed. In this structure, some inputs will also be used for some Math equations, mostly for the outputed price. 
 	    The intended use for each class inside the structure is as follows:
-	    - 'id' will be used for the given item number, we find this in string format for the unusable numbers that other classifications change or ignore. The maximmum lenght of characters (char) will be 5.
-	    - 'precio' shows the price of the clothing, its uses double classification for the decimal use and for the discount.
-	    - 'nombre' will show the name of the clothing, the name uses string for the usege of characters. Its important here that the name of the clothes needs to be inserted completely and correctly.
+	    - 'id' will be used for the given item number, we find this in 'string' format for the unusable numbers that other classifications change or ignore. The maximmum lenght of characters (char) will be 5.
+	    - 'precio' shows the price of the clothing, its uses 'double' data type for the decimal use and for the discount.
+	    - 'nombre' will show the name of the clothing, the name uses 'string' for the usage of characters. Its important here that the name of the clothes needs to be inserted completely and correctly.
 	    - 'unidadesTalla' shows the Size of the clothing, in this class we will insert either of the following: 'chico'/'mediano'/'grande'. Once the user inputs one of the options showed before there will be a +1 made on the according size.
 	    - 'fechaEntrada' will be used to input the date in which the desired clothing is registered in the database, the format of the date will be dd / mm / yyyy.
 	    - 'fechaOferta' will be used for the registration of the time that the clothing has stayed in the database, the format will be the same as the one before.
@@ -24,24 +24,25 @@ namespace ProyectoFinal
 		static void Main(string[] args) {
 			
 
-			// imprime a consola, devuelve string
+			// Input that the user will type inside the console, the computer will place it as a string data type.
 			string obtenerDato(string textoAMostrar) {
 				Console.Write(textoAMostrar + " ");
 				return Console.ReadLine();
 			}
 
 			// This function is the validation that checks if all the variables with the data type 'int' are within the stablished maximum and mimimum limits (interval).
+			// The explanation used for this function works for all the other validations as well, int, string, and double validations.
 			int validacionInt(int limInf, int limSup, string textoAMostrar) {
 				int dato;
 				do {
-					dato = int.Parse(obtenerDato(textoAMostrar));
+					dato = int.Parse(obtenerDato(textoAMostrar)); // the variable 'dato' will be the input of the user. It is converted from 'string' to 'int' data type.
 
 					if (dato < limInf || limSup < dato){
-						Console.WriteLine($"'{dato}' no es una opción válida, debe estar entre {limInf} y {limSup}");
+						Console.WriteLine($"'{dato}' no es una opción válida, debe estar entre {limInf} y {limSup}"); // If 'dato' is within the interval (limInf,LimSup) the input is registered in the database, otherwise it will output the text and ask again for an input.
 					}
 
-				} while (dato < limInf || limSup < dato);
-				return dato;
+				} while (dato < limInf || limSup < dato); // Makes sure to ask again for an input when the interval is not satisfied.
+				return dato; // Saves the input in the database
 			}
 
 			// This function is the validation that checks if all the variables with the data type 'double' are within the stablished maximum and mimimum limits (interval).
@@ -88,15 +89,16 @@ namespace ProyectoFinal
 				return validacionInt(1, numTitulos+1, "Deme la opción deseada:");
 			}
 			
+			// The array used for the second option in the menu ('case 2')
 			void entradaDatos(Prenda[] prendas) {
-				for (int i = 0; i < prendas.Length; i++) {
+				for (int i = 0; i < prendas.Length; i++) { // Loops all the next commands according to the stablished size of the array that was asked at the beginning of the program to the user.
 
-					Console.WriteLine($"\nA continuación ingresará la información de la prenda {i+1}");
+					Console.WriteLine($"\nA continuación ingresará la información de la prenda {i+1}"); // Reminds the user in which clothing he is.
 					
 					Prenda currPrenda = new Prenda();
-					currPrenda.id = validacionLength(5, 5, "Ingrese el ID de la prenda:");
-					currPrenda.nombre = validacionLength(0, 30, "Ingrese el nombre de la prenda:"); // TODO añadir validación por longitud de nombre
-					currPrenda.precio = validacionDouble(0, 10000, "Ingrese el precio de la prenda: $");
+					currPrenda.id = validacionLength(5, 5, "Ingrese el ID de la prenda:"); // The input that will represent the ID. the function 'validacionLength' will place the validation in the input of the user, as we see: (5,5, ....) places the corresponding values to (limInf, limSup, .....), as such the ID needs to be equal to 5 characters.
+					currPrenda.nombre = validacionLength(0, 30, "Ingrese el nombre de la prenda:"); // The input for the name with it's corresponding validation, it will be limited from 0 to 30 characters.
+					currPrenda.precio = validacionDouble(0, 10000, "Ingrese el precio de la prenda: $"); // The input of the user with the validation that limits the price from 0 up to 10,000. 
 
 					currPrenda.unidadesTalla = new int[3];
 					string[] nombreTallas = new string[3] {"CHICA", "MEDIANA", "GRANDE"};
