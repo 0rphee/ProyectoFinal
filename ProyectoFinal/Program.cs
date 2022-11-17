@@ -93,13 +93,17 @@ namespace ProyectoFinal
 			
 			// Method that asks for the items to be stored. It's the second option in the main menu ('case 2')
 			void entradaDatos(Prenda[] prendas) {
-				// Loops through all the next commands necessary to create a new item according to the established size of the array that was asked at the beginning of the program to the user (the number of items to be registered).
+				// Loops through all the next commands necessary to create a new clothing item according to the number of items to be registered by the user (established at the beginning of the program).  
 				for (int i = 0; i < prendas.Length; i++) { 
 
 					Console.WriteLine($"\nA continuación ingresará la información de la prenda {i+1}"); // Reminds the user which clothing item they are registering.
 					
 					Prenda currPrenda = new Prenda();
-					currPrenda.id = validacionLength(5, 5, "Ingrese el ID de la prenda:"); // The input that will represent the ID. the function 'validacionLength' will place the validation in the input of the user, as we see: (5,5, ....) places the corresponding values to (limInf, limSup, .....), as such the ID needs to be equal to 5 characters.
+
+					// The input that will represent the ID. the function 'validacionLength' will validates the input of the user to be of Length == 5. 
+					// As we see: (5,5,...) assigns the corresponding values to (limInf, limSup, .....), thus needing the input to be equal to 5 characters long.
+					currPrenda.id = validacionLength(5, 5, "Ingrese el ID de la prenda:"); 
+
 					currPrenda.nombre = validacionLength(0, 30, "Ingrese el nombre de la prenda:"); // The input for the name with it's corresponding validation, it will be limited from 0 to 30 characters.
 					currPrenda.precio = validacionDouble(0, 10000, "Ingrese el precio de la prenda: $"); // The input of the user with the validation that limits the price from 0 up to 10,000. 
 
@@ -119,7 +123,7 @@ namespace ProyectoFinal
 				ordenación(prendas);
 			}
 
-			// indiceInf and indiceSup are the indices limiting where the values of the new array will come from 			
+			// indiceInf and indiceSup are the indices indicating where the values of the new array will come from 			
 			Prenda[] newArray(Prenda[] prendas, int indiceInf, int    indiceSup)
 			{
 				Prenda[] NewArr = new Prenda[   indiceSup-indiceInf];
