@@ -113,7 +113,7 @@ namespace ProyectoFinal
 
 					prendas[i] = currPrenda;
 				}
-				ordenación (Prenda[] prendas);
+				ordenación(prendas);
 			}
 			
 			Prenda[] newArray(Prenda[] prendas, int LimInf, int LimSup) // los limInf yLimSup son los indices del array
@@ -121,9 +121,9 @@ namespace ProyectoFinal
 				Prenda[] NewArr = new Prenda[LimSup-LimInf];
 				for (int k = 0; k < NewArr.Length; k++)
 				{
-					NewArr[k] = prendas [LimInf+k]
+					NewArr[k] = prendas[LimInf+k];
 				}
-				return NewArr
+				return NewArr;
 			}
 			
 			// Bubble Sort
