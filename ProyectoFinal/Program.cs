@@ -130,15 +130,15 @@ namespace ProyectoFinal
 			static void ordenación(Prenda[] prendas) 
 			{
 				Prenda aux; // We create an extra variable to aid us in the change of position
-				for(int i = 0; i < prendas.Length-1; i++) // Loop for all the available clothes
+				for(int i = 0; i < prendas.Length - 1; i++) // Loop for all the available clothes
 				{
-					for (int j = 0; j < prendas.Length-1-i; j++) // Another loop for the other n-1 clothes that need to be compared to the already selected one.
+					for (int j = 0; j < prendas.Length - 1 - i; j++) // Another loop for the other n-1 clothes that need to be compared to the already selected one.
 					{
-						if (prendas[j] < prendas[j+1]) // will compare if the clothing is lower than the next one. If it is, it will do the following:
+						if (prendas[j].precio < prendas[j+1].precio) // will compare if the clothing is lower than the next one. If it is, it will do the following:
 						{
-							aux = prendas[r]; // saves the clothinng in the auxiliar, so its leaves 'prendas[r]' empty.
-							prendas[r] = prendas [r + 1]; // exchanges the values from 'prendas[r + 1]' to 'prendas[r]', now 'prendas[r + 1]' is empty.
-							prendas[r + 1] = aux; // Places the value from the variable 'aux' to 'prendas[r + 1]'.
+							aux = prendas[j]; // saves the clothinng in the auxiliar, so its leaves 'prendas[j]' empty.
+							prendas[j] = prendas [j+1]; // exchanges the values from 'prendas[j+ 1]' to 'prendas[j]', now 'prendas[j + 1]' is empty.
+							prendas[j+1] = aux; // Places the value from the variable 'aux' to 'prendas[j + 1]'.
 						}
 					}
 				}
