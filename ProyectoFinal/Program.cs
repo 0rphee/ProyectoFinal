@@ -12,7 +12,7 @@ namespace ProyectoFinal
 	    - 'nombre' stores the name of the clothing item. Its important here that the name of the clothes needs to be inserted completely and correctly.
 	    - 'unidadesTalla' stores the units per size of the clothing item. It will store the items available for the next size classification 'chico'/'mediano'/'grande'.
 	    - 'fechaEntrada' stores the date in which the desired clothing is registered into the inventory, the format of the date will be dd / mm / yyyy.
-	    - 'fechaOferta' stores the date at which the item will be put on sale. It is calculated by adding 30 days to 'fechaEntrada'
+	    - 'fechaOferta' stores the date at which the item will be put on discount. It is calculated by adding 30 days to 'fechaEntrada'
 	    */
 
 		public struct Prenda {
@@ -169,7 +169,8 @@ namespace ProyectoFinal
 				}
 				return section;
 			}
-		
+			
+			// This function outputs row with the headers that will be found at the beginning of the table.
 			string crearFilaTitulos(){
 				string[] nombreTallas = new string[3] {"CHICA", "MEDIANA", "GRANDE"};
 				string fila;
@@ -182,6 +183,7 @@ namespace ProyectoFinal
 				return fila;
 			}
 			
+			// This function outputs the corresponding row for each clothing item.
 			string crearFilaPrenda(Prenda prenda){
 				string fila;
 				fila = formatearPropiedad(prenda.id, -5);
@@ -193,7 +195,7 @@ namespace ProyectoFinal
 				return fila;
 			}
 			
-			
+			// The function that does the connection with the other functions that make up a part of the complete table.
 			string crearListaPrendas(Prenda[] prendas){
 				string titulos = crearFilaTitulos(); 
 				string topList = String.Concat(Enumerable.Repeat("-", titulos.Length));
@@ -213,7 +215,7 @@ namespace ProyectoFinal
 					switch (opc)
 					{
 						case 1:
-							// Outputs the complete database in a table format
+							// Outputs the complete database in a table format.
 							Console.WriteLine(crearListaPrendas(prendas));
 							break;
 						case 2: 
@@ -231,12 +233,11 @@ namespace ProyectoFinal
 							Console.WriteLine(crearListaPrendas(newArray(prendas, 0, 4)));
 							break;
 						case 5:
-					          // Outputs in table format, the 5 most affordable clothes.
+					          	// Outputs in table format, the 5 most affordable clothes.
 							Console.WriteLine(crearListaPrendas(newArray(prendas, prendas.Length-6, prendas.Length-1)));
-
 							break;
 						case 6:
-							// Backs out to the first Menu
+							// Backs out to the Main Menu
 							break;
 					}
 				} while (opc != 6 ); // If the choosen option is bigger different to 6 it will repeat the menu. 
