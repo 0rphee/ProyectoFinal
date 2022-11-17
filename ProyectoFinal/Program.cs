@@ -217,12 +217,10 @@ namespace ProyectoFinal
 							Console.WriteLine(busquedaNombre(prendas, nombreBuscar));
 							break;
 						case 4:
-							newArray(prendas, 0, 4);
-							Console.WriteLine(crearListaPrendas(NewArr));
+							Console.WriteLine(crearListaPrendas(newArray(prendas, 0, 4)));
 							break;
 						case 5:
-							newArray(prendas, prendas.Length-6, prendas.Length-1);
-							Console.WriteLine(crearListaPrendas(NewArr));
+							Console.WriteLine(crearListaPrendas(newArray(prendas, prendas.Length-6, prendas.Length-1)));
 							break;
 						case 6:
 							break;
