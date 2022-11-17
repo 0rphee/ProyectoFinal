@@ -140,10 +140,18 @@ namespace ProyectoFinal
             }
 
             // Method for obtaining an array from a subsection of another. indiceInf and indiceSup are the indices indicating where the values of the new array will come from            
-            Prenda[] newArray(Prenda[] prendas, int indiceInf, int indiceSup) {
-                Prenda[] NewArr = new Prenda[indiceSup - indiceInf];
+            Prenda[]  newArrayMayores(Prenda[] prendas, int indiceInf, int indiceSup) {
+                Prenda[] NewArr = new Prenda[indiceSup - indiceInf + 1];
                 for (int k = 0; k < NewArr.Length; k++) {
                     NewArr[k] = prendas[indiceInf + k];
+                }
+                return NewArr;
+            }
+
+            Prenda[] newArrayMenores(Prenda[] prendas, int indiceInf, int indiceSup) {
+                Prenda[] NewArr = new Prenda[indiceSup - indiceInf + 1];
+                for (int k = 0; k < NewArr.Length; k++) {
+                    NewArr[k] = prendas[indiceSup - k];
                 }
                 return NewArr;
             }
@@ -231,11 +239,11 @@ namespace ProyectoFinal
                             break;
                         case 4:
                             // Outputs in table format, the 5 most expensive items.
-                            Console.WriteLine(crearListaPrendas(newArray(prendas, 0, 4)));
+                            Console.WriteLine(crearListaPrendas(newArrayMayores(prendas, 0, 4)));
                             break;
                         case 5:
                             // Outputs in table format, the 5 most affordable clothes.
-                            Console.WriteLine(crearListaPrendas(newArray(prendas, prendas.Length - 6, prendas.Length - 1)));
+                            Console.WriteLine(crearListaPrendas(newArrayMenores(prendas, prendas.Length - 5, prendas.Length - 1)));
                             break;
                         case 6:
                             // Backs out to the Main Menu
@@ -275,12 +283,21 @@ namespace ProyectoFinal
                 Prenda testprenda = new Prenda();
                 testprenda.id = "12345";
                 testprenda.nombre = "adsljkfsd";
-                testprenda.precio = 34242;
+                testprenda.precio = 100;
                 testprenda.unidadesTalla = new int[3] { 1, 0, 0 };
                 testprenda.fechaEntrada = DateTime.Today;
                 testprenda.fechaOferta = DateTime.Today;
+                Prenda[] testPrendas = new Prenda[5];
+                for (int i = 0; i < 5; i++){
+                    testPrendas[i] = testprenda;
+                    testPrendas[i].precio += i*10;
+                }
+                ordenación(testPrendas);
 
                 Console.WriteLine(crearListaPrendas(new Prenda[1] { testprenda }));
+                Console.WriteLine(crearListaPrendas(testPrendas));
+                Console.WriteLine(crearListaPrendas(newArrayMayores(testPrendas, 0, 4)));
+                Console.WriteLine(crearListaPrendas(newArrayMenores(testPrendas, testPrendas.Length - 5, testPrendas.Length - 1)));
             }
 
             // METHOD DEFINITIONS END ---------------------------------------------------------------------------
