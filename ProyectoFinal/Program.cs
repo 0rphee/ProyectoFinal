@@ -115,7 +115,17 @@ namespace ProyectoFinal
 				ordenación (Prenda[] prendas);
 			}
 			
-			static void ordenación(Prenda[] prendas)
+			Prenda[] newArray(Prenda[] prendas, int LimInf, int LimSup) // los limInf yLimSup son los indices del array
+			{
+				Prenda[] NewArr = new Prenda[LimSup-LimInf];
+				for (int k = 0; k < NewArr.Length; k++)
+				{
+					NewArr[k] = prendas [LimInf+k]
+				}
+				return NewArr
+			}
+
+			static void ordenación(Prenda[] prendas) // Ordenación burbuja
 			{
 				Prenda aux;
 				for(int i = 0; i < prendas.Length-1; i++)
@@ -207,10 +217,12 @@ namespace ProyectoFinal
 							Console.WriteLine(busquedaNombre(prendas, nombreBuscar));
 							break;
 						case 4:
-							// mayoresCinco(); TODO añadir métodos para mayores números
+							newArray(prendas, 0, 4);
+							Console.WriteLine(crearListaPrendas(NewArr));
 							break;
 						case 5:
-							// menoresCinco();
+							newArray(prendas, prendas.Length-6, prendas.Length-1);
+							Console.WriteLine(crearListaPrendas(NewArr));
 							break;
 						case 6:
 							break;
