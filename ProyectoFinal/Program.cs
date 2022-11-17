@@ -5,7 +5,7 @@ namespace ProyectoFinal
         The structure that will be applied throughout all the program, in which we will be able to create the outputed table in which the
         input of the user will be shown. In this structure, some inputs will also be used for some Math equations, mostly for the outputted
         price.The intended use for each property of the structure is detailed as follows:
-
+ 
         - 'id' will be used for the given item id number. The id is stored in 'string format for the unusable numbers that would be valid
           for an id, but ignored by an 'int' type. The maximum length of the string is 5.
         - 'precio' stores the price of the clothing item as a 'double' data type. Due to it being a price, it needs to use decimal values.
