@@ -100,11 +100,12 @@ namespace ProyectoFinal
 					currPrenda.nombre = validacionLength(0, 30, "Ingrese el nombre de la prenda:"); // The input for the name with it's corresponding validation, it will be limited from 0 to 30 characters.
 					currPrenda.precio = validacionDouble(0, 10000, "Ingrese el precio de la prenda: $"); // The input of the user with the validation that limits the price from 0 up to 10,000. 
 
-					currPrenda.unidadesTalla = new int[3];
+					currPrenda.unidadesTalla = new int[3]; // We stablish the lenght of the array, in which we will determine the number of sizes available.
 					string[] nombreTallas = new string[3] {"CHICA", "MEDIANA", "GRANDE"};
-
+					
+					// This loop will cycle to each size, so that the user can input the corresponding response.
 					for (int k = 0; k < currPrenda.unidadesTalla.Length; k++){
-						currPrenda.unidadesTalla[k] = int.Parse(obtenerDato($"Ingrese el número de unidades de la talla {nombreTallas[k]}:"));
+						currPrenda.unidadesTalla[k] = int.Parse(obtenerDato($"Ingrese el número de unidades de la talla {nombreTallas[k]}:")); // The input of the user that will determine the quantity of clothes in each size.
 					}
 
 					currPrenda.fechaEntrada = DateTime.Parse(obtenerDato("Dame la fecha de la prenda dd/mm/yyyy:"));
@@ -198,6 +199,7 @@ namespace ProyectoFinal
 				return listado + topList + "\n";
 			}
 			
+			// Outputs the SubMenu that was choosen in the first Menu, the second option (case 2).
 			void entregaResultados(Prenda[] prendas){
 				int opc;
 				do
