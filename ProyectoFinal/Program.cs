@@ -173,7 +173,7 @@ namespace ProyectoFinal
                 string fila;
                 fila = formatearPropiedad("ID", -5);
                 fila += formatearPropiedad("PRECIO", -7);
-                fila += formatearPropiedad("NOMBRE", -7);
+                fila += formatearPropiedad("NOMBRE", -20);
                 fila += formatearPropiedad("CHICA", -7);
                 fila += formatearPropiedad("MEDIANA", -7);
                 fila += formatearPropiedad("GRANDE", -7);
