@@ -172,6 +172,7 @@ namespace ProyectoFinal
                 string section = "";
 
                 for (int i = 0; i < arrUnidadesTallas.Length; i++) {
+
                     section += String.Format($"| {{0, {espacios}}} |", arrUnidadesTallas[i]);
                 }
                 return section;
@@ -182,6 +183,7 @@ namespace ProyectoFinal
                 string section = "";
 
                 for (int i = 0; i < arrNombresTallas.Length; i++) {
+
                     section += String.Format($"| {{0, {espacios}}} |", arrNombresTallas[i]);
                 }
                 return section;
