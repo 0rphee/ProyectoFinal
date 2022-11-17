@@ -139,7 +139,7 @@ namespace ProyectoFinal
                 ordenación(prendas);
             }
 
-            // Method for obtaining an array from a subsection of another. indiceInf and indiceSup are the indices indicating where the values of the new array will come from            
+            // Method for obtaining an array with the from a subsection of another. indiceInf and indiceSup are the indices indicating where the values of the new array will come from            
             Prenda[]  newArrayMayores(Prenda[] prendas, int indiceInf, int indiceSup) {
                 Prenda[] NewArr = new Prenda[indiceSup - indiceInf + 1];
                 for (int k = 0; k < NewArr.Length; k++) {
@@ -147,7 +147,7 @@ namespace ProyectoFinal
                 }
                 return NewArr;
             }
-
+            // Method for obtaining an array from a subsection of another and arrange it backwards. indiceInf and indiceSup are the indices indicating where the values of the new array will come from
             Prenda[] newArrayMenores(Prenda[] prendas, int indiceInf, int indiceSup) {
                 Prenda[] NewArr = new Prenda[indiceSup - indiceInf + 1];
                 for (int k = 0; k < NewArr.Length; k++) {
@@ -225,25 +225,35 @@ namespace ProyectoFinal
                     {
                         case 1:
                             // Outputs the complete database in a table format.
+                            Console.ForegroundColor = ConsoleColor.DarkGreen;
                             Console.WriteLine(crearListaPrendas(prendas));
+                            Console.ForegroundColor = ConsoleColor.DarkCyan;
                             break;
                         case 2:
                             // Searches for a specific piece of clothing by ID.
                             string idBuscar = obtenerDato("Ingrese el ID de prenda a encontrar:");
+                            Console.ForegroundColor = ConsoleColor.DarkGreen;
                             Console.WriteLine(busquedaID(prendas, idBuscar));
+                            Console.ForegroundColor = ConsoleColor.DarkCyan;
                             break;
                         case 3:
                             // Searches for a specific piece of clothing by name.
                             string nombreBuscar = obtenerDato("Ingrese el nombre de prenda a encontrar:");
+                            Console.ForegroundColor = ConsoleColor.DarkGreen;
                             Console.WriteLine(busquedaNombre(prendas, nombreBuscar));
+                            Console.ForegroundColor = ConsoleColor.DarkCyan;
                             break;
                         case 4:
                             // Outputs in table format, the 5 most expensive items.
+                            Console.ForegroundColor = ConsoleColor.DarkGreen;
                             Console.WriteLine(crearListaPrendas(newArrayMayores(prendas, 0, 4)));
+                            Console.ForegroundColor = ConsoleColor.DarkCyan;
                             break;
                         case 5:
                             // Outputs in table format, the 5 most affordable clothes.
+                            Console.ForegroundColor = ConsoleColor.DarkGreen;
                             Console.WriteLine(crearListaPrendas(newArrayMenores(prendas, prendas.Length - 5, prendas.Length - 1)));
+                            Console.ForegroundColor = ConsoleColor.DarkCyan;
                             break;
                         case 6:
                             // Backs out to the Main Menu
