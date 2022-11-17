@@ -289,6 +289,7 @@ namespace ProyectoFinal
             }
 
             // This is the test unit that is used to quickly test the printing method, without the necessity of entering the inputs ourselves each time.
+            /*
             void test() {
                 Prenda testprenda = new Prenda();
                 testprenda.id = "12345";
@@ -309,12 +310,13 @@ namespace ProyectoFinal
                 Console.WriteLine(crearListaPrendas(newArrayMayores(testPrendas, 0, 4)));
                 Console.WriteLine(crearListaPrendas(newArrayMenores(testPrendas, testPrendas.Length - 5, testPrendas.Length - 1)));
             }
+            */
 
             // METHOD DEFINITIONS END ---------------------------------------------------------------------------
             // PROPER BEGINNING OF THE PROGRAM ------------------------------------------------------------------
 
             // TEST PRINT, we use this command so that the computer outputs the test unit of an example that simulates the input the user could place.
-            test();
+            // test(); invocation of test unit before the execution of the rest of the program, for debugging purposes.
 
             // Input of the number of clothes that the user will register
             int nPrendas = validacionInt(5, 100, "¿Cuántas prendas vas a registar?");
