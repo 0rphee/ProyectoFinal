@@ -161,26 +161,7 @@ namespace ProyectoFinal
                 return String.Format($"| {{0, {espacios}}} |", prop);
             }
            
-            // This function formats the number of units for every size in the array to the amount of spaces that you want
-            string formatearTallas(int[] arrUnidadesTallas, int espacios){
-                string section = "";
-               
-                for (int i = 0; i <  arrUnidadesTallas.Length; i++){
-                    section += String.Format($"| {{0, {espacios}}} |", arrUnidadesTallas[i]);
-                }
-                return section;
-            }
- 
-            // This function formats every title in the array to the amount of spaces that you want
-            string formatearTituloTallas(string[] arrNombresTallas, int espacios){
-                string section = "";
-               
-                for (int i = 0; i <  arrNombresTallas.Length; i++){
-                    section += String.Format($"| {{0, {espacios}}} |", arrNombresTallas[i]);
-                }
-                return section;
-            }
-           
+          
             // This function outputs row with the headers that will be found at the beginning of the table.
             string crearFilaTitulos(){
                 string[] nombreTallas = new string[3] {"CHICA", "MEDIANA", "GRANDE"};
@@ -188,7 +169,9 @@ namespace ProyectoFinal
                 fila = formatearPropiedad("ID", -5);
                 fila += formatearPropiedad("PRECIO", -7);
                 fila += formatearPropiedad("NOMBRE", -20);
-                fila += formatearTituloTallas(nombreTallas, -7);
+                fila += formatearPropiedad("CHICA", -7);
+                fila += formatearPropiedad("MEDIANA", -7);
+                fila += formatearPropiedad("GRANDE", -7);
                 fila += formatearPropiedad("FECHA DE ENTRADA", -16);
                 fila += formatearPropiedad("FECHA DE OFERTA", -16);
                 return fila;
@@ -200,7 +183,9 @@ namespace ProyectoFinal
                 fila = formatearPropiedad(prenda.id, -5);
                 fila += formatearPropiedad($"$ {prenda.precio.ToString()}", -7);
                 fila += formatearPropiedad($"{prenda.nombre}", -20);
-                fila += formatearTallas(prenda.unidadesTalla, -7);
+                fila += formatearPropiedad($"{prenda.unidadesTalla[0]}", -7);
+                fila += formatearPropiedad($"{prenda.unidadesTalla[1]}", -7);
+                fila += formatearPropiedad($"{prenda.unidadesTalla[2]}", -7);
                 fila += formatearPropiedad($"{prenda.fechaEntrada.ToString("d")}", -16);
                 fila += formatearPropiedad($"{prenda.fechaOferta.ToString("d")}", -16);
                 return fila;
