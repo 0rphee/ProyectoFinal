@@ -105,7 +105,7 @@ namespace ProyectoFinal
 					currPrenda.id = validacionLength(5, 5, "Ingrese el ID de la prenda:"); 
 
 					// The input for the name with it's corresponding validation, it will be limited from 0 to 30 characters.
-					currPrenda.nombre = validacionLength(0, 30, "Ingrese el nombre de la prenda:"); 
+					currPrenda.nombre = validacionLength(0, 20, "Ingrese el nombre de la prenda:"); 
 
 					// The input of the user with the validation that limits the price to be from 0 up to 10,000. 
 					currPrenda.precio = validacionDouble(0, 10000, "Ingrese el precio de la prenda: $"); 
@@ -156,10 +156,12 @@ namespace ProyectoFinal
 				}
 			}
 
+			// This function formats a string to a specific length of spaces 
 			string formatearPropiedad(string prop, int espacios){
 				return String.Format($"| {{0, {espacios}}} |", prop);
 			}
 			
+			// This function formats the number of units for every size in the array to the amount of spaces that you want 
 			string formatearTallas(int[] arrUnidadesTallas, int espacios){
 				string section = "";
 				
@@ -169,6 +171,7 @@ namespace ProyectoFinal
 				return section;
 			}
 
+			// This function formats every title in the array to the amount of spaces that you want
 			string formatearTituloTallas(string[] arrNombresTallas, int espacios){
 				string section = "";
 				
