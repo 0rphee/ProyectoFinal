@@ -125,19 +125,20 @@ namespace ProyectoFinal
 				}
 				return NewArr
 			}
-
-			static void ordenación(Prenda[] prendas) // Ordenación burbuja
+			
+			// Bubble Sort
+			static void ordenación(Prenda[] prendas) 
 			{
-				Prenda aux;
-				for(int i = 0; i < prendas.Length-1; i++)
+				Prenda aux; // We create an extra variable to aid us in the change of position
+				for(int i = 0; i < prendas.Length-1; i++) // Loop for all the available clothes
 				{
-					for (int j = 0; j < prendas.Length-1-i; j++)
+					for (int j = 0; j < prendas.Length-1-i; j++) // Another loop for the other n-1 clothes that need to be compared to the already selected one.
 					{
-						if (prendas[j] < prendas[j+1])
+						if (prendas[j] < prendas[j+1]) // will compare if the clothing is lower than the next one. If it is, it will do the following:
 						{
-							aux = prendas[r];
-							prendas[r] = prendas [r + 1];
-							prendas[r + 1] = aux;
+							aux = prendas[r]; // saves the clothinng in the auxiliar, so its leaves 'prendas[r]' empty.
+							prendas[r] = prendas [r + 1]; // exchanges the values from 'prendas[r + 1]' to 'prendas[r]', now 'prendas[r + 1]' is empty.
+							prendas[r + 1] = aux; // Places the value from the variable 'aux' to 'prendas[r + 1]'.
 						}
 					}
 				}
@@ -208,28 +209,34 @@ namespace ProyectoFinal
 					switch (opc)
 					{
 						case 1:
+							// Outputs the complete database in a table format
 							Console.WriteLine(crearListaPrendas(prendas));
 							break;
-						case 2:
+						case 2: 
+							// Search of a specific piece of clothing by the ID.
 							string idBuscar = obtenerDato("Ingrese el ID de prenda a encontrar:");
 							Console.WriteLine(busquedaID(prendas, idBuscar)); 
 							break;
 						case 3:
+							// Search for a specific piece of clothing by the name.
 							string nombreBuscar = obtenerDato("Ingrese el nombre de prenda a encontrar:");
 							Console.WriteLine(busquedaNombre(prendas, nombreBuscar));
 							break;
 						case 4:
+							// Outputs, in table format, the 5 most expensive items.
 							newArray(prendas, 0, 4);
 							Console.WriteLine(crearListaPrendas(NewArr));
 							break;
 						case 5:
+							// Outputs, in table format, the 5 most affordable clothes.
 							newArray(prendas, prendas.Length-6, prendas.Length-1);
 							Console.WriteLine(crearListaPrendas(NewArr));
 							break;
 						case 6:
+							// Backs out to the first Menu
 							break;
 					}
-				} while (opc != 6 );
+				} while (opc != 6 ); // If the choosen option is bigger than 6 it will repeat the menu. 
 			}
 			
 			// He next line of code searches the input of the user in the ID section.
