@@ -93,22 +93,30 @@ namespace ProyectoFinal
 			
 			// Method that asks for the items to be stored. It's the second option in the main menu ('case 2')
 			void entradaDatos(Prenda[] prendas) {
-				// Loops through all the next commands necessary to create a new item according to the established size of the array that was asked at the beginning of the program to the user (the number of items to be registered).
+				// Loops through all the next commands necessary to create a new clothing item according to the number of items to be registered by the user (established at the beginning of the program).  
 				for (int i = 0; i < prendas.Length; i++) { 
 
 					Console.WriteLine($"\nA continuación ingresará la información de la prenda {i+1}"); // Reminds the user which clothing item they are registering.
 					
 					Prenda currPrenda = new Prenda();
-					currPrenda.id = validacionLength(5, 5, "Ingrese el ID de la prenda:"); // The input that will represent the ID. the function 'validacionLength' will place the validation in the input of the user, as we see: (5,5, ....) places the corresponding values to (limInf, limSup, .....), as such the ID needs to be equal to 5 characters.
-					currPrenda.nombre = validacionLength(0, 30, "Ingrese el nombre de la prenda:"); // The input for the name with it's corresponding validation, it will be limited from 0 to 30 characters.
-					currPrenda.precio = validacionDouble(0, 10000, "Ingrese el precio de la prenda: $"); // The input of the user with the validation that limits the price from 0 up to 10,000. 
 
-					currPrenda.unidadesTalla = new int[3]; // We stablish the lenght of the array, in which we will determine the number of sizes available.
+					// The input that will represent the ID. the function 'validacionLength' will validates the input of the user to be of Length == 5. 
+					// As we see: (5,5,...) assigns the corresponding values to (limInf, limSup, .....), thus needing the input to be equal to 5 characters long.
+					currPrenda.id = validacionLength(5, 5, "Ingrese el ID de la prenda:"); 
+
+					// The input for the name with it's corresponding validation, it will be limited from 0 to 30 characters.
+					currPrenda.nombre = validacionLength(0, 30, "Ingrese el nombre de la prenda:"); 
+
+					// The input of the user with the validation that limits the price to be from 0 up to 10,000. 
+					currPrenda.precio = validacionDouble(0, 10000, "Ingrese el precio de la prenda: $"); 
+
 					string[] nombreTallas = new string[3] {"CHICA", "MEDIANA", "GRANDE"};
-					
-					// This loop will cycle to each size, so that the user can input the corresponding response.
+					currPrenda.unidadesTalla = new int[3]; // We establish the lenght of the array, in which we will determine the number of sizes available.
+
+					// This loop will cycle through each size, so that the user can input the corresponding response.
 					for (int k = 0; k < currPrenda.unidadesTalla.Length; k++){
-						currPrenda.unidadesTalla[k] = int.Parse(obtenerDato($"Ingrese el número de unidades de la talla {nombreTallas[k]}:")); // The input of the user that will determine the quantity of clothes in each size.
+						 // The input of the user that will determine the quantity of clothes available for each size.
+						currPrenda.unidadesTalla[k] = validacionInt(0, 100, $"Ingrese el número de unidades de la talla {nombreTallas[k]}:");
 					}
 
 					currPrenda.fechaEntrada = DateTime.Parse(obtenerDato("Deme la fecha de entrada de la prenda dd/mm/yyyy:"));
@@ -119,7 +127,7 @@ namespace ProyectoFinal
 				ordenación(prendas);
 			}
 
-			// indiceInf and indiceSup are the indices limiting where the values of the new array will come from 			
+			// Method for obtaining an arrray from a subsection of another. indiceInf and indiceSup are the indices indicating where the values of the new array will come from 			
 			Prenda[] newArray(Prenda[] prendas, int indiceInf, int    indiceSup)
 			{
 				Prenda[] NewArr = new Prenda[   indiceSup-indiceInf];
@@ -130,7 +138,7 @@ namespace ProyectoFinal
 				return NewArr;
 			}
 			
-			// Bubble Sort
+			// Bubble Sorting, by the price a 'Prenda 'array
 			static void ordenación(Prenda[] prendas) 
 			{
 				Prenda aux; // We create an extra variable to aid us in the change of position
@@ -140,7 +148,7 @@ namespace ProyectoFinal
 					{
 						if (prendas[j].precio < prendas[j+1].precio) // will compare if the clothing is lower than the next one. If it is, it will do the following:
 						{
-							aux = prendas[j]; // saves the clothinng in the auxiliar, so its leaves 'prendas[j]' empty.
+							aux = prendas[j]; // saves the clothinng in the auxiliar var, so its leaves 'prendas[j]' empty.
 							prendas[j] = prendas [j+1]; // exchanges the values from 'prendas[j+ 1]' to 'prendas[j]', now 'prendas[j + 1]' is empty.
 							prendas[j+1] = aux; // Places the value from the variable 'aux' to 'prendas[j + 1]'.
 						}
@@ -206,7 +214,7 @@ namespace ProyectoFinal
 				return listado + topList + "\n";
 			}
 			
-			// Outputs the SubMenu that was choosen in the first Menu, the second option (case 2).
+			// Outputs the SubMenu after selecting the second option in the main Menu (case 2).
 			void entregaResultados(Prenda[] prendas){
 				int opc;
 				do
@@ -219,12 +227,12 @@ namespace ProyectoFinal
 							Console.WriteLine(crearListaPrendas(prendas));
 							break;
 						case 2: 
-							// Search of a specific piece of clothing by the ID.
+							// Searches for a specific piece of clothing by ID.
 							string idBuscar = obtenerDato("Ingrese el ID de prenda a encontrar:");
 							Console.WriteLine(busquedaID(prendas, idBuscar)); 
 							break;
 						case 3:
-							// Search for a specific piece of clothing by the name.
+							// Searches for a specific piece of clothing by name.
 							string nombreBuscar = obtenerDato("Ingrese el nombre de prenda a encontrar:");
 							Console.WriteLine(busquedaNombre(prendas, nombreBuscar));
 							break;
@@ -240,27 +248,29 @@ namespace ProyectoFinal
 							// Backs out to the Main Menu
 							break;
 					}
-				} while (opc != 6 ); // If the choosen option is bigger different to 6 it will repeat the menu. 
+				} while (opc != 6 ); // If the choosen option is different to 6 it will ask to select again an optino from the submenu. 
 			}
 			
-			// The next line of code searches the input of the user in the ID section.
+			// The next line of code searches for the input of the user in the ID section.
 			string busquedaID(Prenda[] prendas, string idEncontrar){
-				for (int i = 0; i < prendas.Length; i++){ // It will loop the search for each clothing item inside the database.
-					if (prendas[i].id == idEncontrar){ 
-						return crearListaPrendas(new Prenda[] {prendas[i]}); // TODO arreglar impresion
-					} // if the 'if' statement is satisfied it will stop the loop and output all the information of the clothing item, otherwise, the it will continue on with the next item and so on.
+				for (int i = 0; i < prendas.Length; i++){ // This will loop through each clothing item inside the database until it finds a match.
+					if (prendas[i].id == idEncontrar){ // when the 'if' statement is satisfied, it will stop the loop and output all the information of the clothing item, otherwise, it will continue on with the next item and so on.
+						return crearListaPrendas(new Prenda[] {prendas[i]});
+					} 
 				}
-				return $"No se encontró ninguna prenda con el ID: {idEncontrar}"; // In the event that the if statement does not find anything and the loop has closed it will print the line of text.
+				 // In the event that the if statement does not find anything and the loop has closed it will print inform the user of the failure to find an item with the given id.
+				return $"No se encontró ninguna prenda con el ID: {idEncontrar}";
 			}
 			
-			// The next line of code searches the input of the user in the Name section.
+			// The next line of code searches for input of the user in the Name section.
 			string busquedaNombre(Prenda[] prendas, string nombreEncontrar){
-			for (int i = 0; i < prendas.Length; i++){ // It will loop the search for each clothing item inside the database.
-					if (prendas[i].nombre == nombreEncontrar){
-						return crearListaPrendas(new Prenda[] {prendas[i]}); // TODO arreglar impresion
-					} // if the 'if' statement is satisfied it will stop the loop and output all the information of the clothing item, otherwise, the it will continue on with the next item and so on.
+			for (int i = 0; i < prendas.Length; i++){ // This will loop through each clothing item inside the database until it finds a match.
+					if (prendas[i].nombre == nombreEncontrar){ // when the 'if' statement is satisfied, it will stop the loop and output all the information of the clothing item, otherwise, it will continue on with the next item and so on.
+						return crearListaPrendas(new Prenda[] {prendas[i]});
+					}
 				}
-				return $"No se encontró ninguna prenda con el nombre: {nombreEncontrar}"; // In the event that the if statement does not find anything and the loop has closed it will print the line of text.
+				// In the event that the if statement does not find anything and the loop has closed it will print inform the user of the failure to find an item with the given name.
+				return $"No se encontró ninguna prenda con el nombre: {nombreEncontrar}";
 			}
 			
 			// This is the test unit that is used to quickly test the printing method, without the necessity of entering the inputs ourselves each time. 
@@ -276,16 +286,17 @@ namespace ProyectoFinal
 				Console.WriteLine(crearListaPrendas(new Prenda[1] {testprenda}));
 			}			
 
+			// METHOD DEFINITIONS END ---------------------------------------------------------------------------
 			// PROPER BEGINNING OF THE PROGRAM ------------------------------------------------------------------
 			
 			// TEST PRINT, we use this command so that the computer outputs the test unit of an example that simulates the input the user could place.
 			test();
 
-			// Input of the number of clothes that the user will 
-			int nPrendas = validacionInt(1, 100, "¿Cuántas prendas vas a registar?"); // TODO definir numero minimo de prendas
+			// Input of the number of clothes that the user will register
+			int nPrendas = validacionInt(5, 100, "¿Cuántas prendas vas a registar?");
 			Prenda[] prendas = new Prenda[nPrendas];
 			
-			int opc; // create the variable 'opc' for the menu, its usage is when choosing an option isnide of the menu.
+			int opc; // create the variable 'opc' for later choosing an option from the menu.
 			bool datosRegistrados = false; // This statement is for the case that the user inputs the second option but hasn't registered the data.
 			
 			do 
@@ -294,22 +305,22 @@ namespace ProyectoFinal
 				switch (opc)
 				{
 					case 1:
-						entradaDatos(prendas); // we go directly to the array the user in which the user will input all the data needed for the program.
+						entradaDatos(prendas); // we input the array in which the user will enter all the data needed for the program.
 						datosRegistrados = true; // By converting the boolean from 'false' to 'true' we say that data has been registered inside the database.
 						break;
 					case 2:
-						/*
-						With this 'if' statement we check if the user already choose 'case 1' and registered the data.
-						The 'if' statement evalutes if the statement is true or false, by default it's in that order. As such, in this program, it will check if the 'datosRegistrados' variable is either 'true' or 'false'.
-						*/
+						// With this 'if' statement we check if the user already chosen 'case 1' and registered the data.
+						// The 'if' statement evalutes if the statement is true or false, by default it's in that order. As such, in this program, it will check 
+						// if the 'datosRegistrados' variable is either 'true' or 'false'.
 						if (datosRegistrados){
-							entregaResultados(prendas); // If the variable is 'true' it will send the user into the array which displays the SubMenu, that is for the results..
+							entregaResultados(prendas); // If the variable is 'true' it will send the user into the SubMenu to show the results.
 						} else{
-							Console.WriteLine("No se han registrado prendas aún. Registra prendas antes de ver resultados."); // If the variable is 'false' it will output the message and back out to the menu once again.
+							// If the variable is 'false' it will output this message and back out to the main menu.
+							Console.WriteLine("No se han registrado prendas aún. Registra prendas antes de ver resultados."); 
 						}
 						break;
 					case 3:
-						// This option closes the menu, terminate the execution of the program.
+						// This option closes the menu, terminating the execution of the program.
 						break;
 				} // In each case we use the break command so that the program stops and backsteps into the corresponding output.
 			} while (opc != 3);
